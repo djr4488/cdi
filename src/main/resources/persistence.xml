@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <persistence-unit name="cards-pu" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>CardsDB</jta-data-source>
+        <class>org.djr.cdi.properties.database.model.PropertyModel</class>
+        <properties>
+            <property
+                    name="eclipselink.logging.level.sql"
+                    value="FINE"/>
+            <property
+                    name="eclipselink.logging.parameters"
+                    value="true"/>
+            <property
+                    name="eclipselink.ddl-generation.output-mode"
+                    value="database"/>
+            <property
+                    name="eclipselink.ddl-generation"
+                    value="create-or-extend-tables"/>
+        </properties>
+    </persistence-unit>
+</persistence>

@@ -12,7 +12,7 @@ Purpose of this was mostly for myself so I didn't have to repeat certain reused 
 If you want to use it; feel free to fork it and use it to your hearts content; I am just not liable for anything it may or may not do.
 
 ## How to use
-###Inject a logger:
+### Inject a logger:
 ```
 public class Foo {
   @Inject
@@ -20,7 +20,7 @@ public class Foo {
 }
 ```
 
-###Inject and use properties:
+### Inject and use properties:
 ```
 public class FooPropertyManager {
   @Inject
@@ -36,7 +36,7 @@ public class FooPropertyManager {
 }
 ```
 
-####In the case of FileProperties and DatabaseProperties the following snippet is used to find the appName
+#### In the case of FileProperties and DatabaseProperties the following snippet is used to find the appName
 ```
 @Resource(lookup="java:app/AppName")
 private String appName;

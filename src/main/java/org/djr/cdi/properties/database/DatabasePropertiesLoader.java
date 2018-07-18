@@ -31,6 +31,8 @@ public class DatabasePropertiesLoader implements PropertyLoader {
             for (PropertyModel propertyModel : propertyModels) {
                 prop.setProperty(propertyModel.getPropertyName(), propertyModel.getPropertyValue());
             }
+        } else {
+            prop = new Properties();
         }
         return prop;
     }

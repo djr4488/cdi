@@ -18,7 +18,7 @@ import javax.persistence.Version;
 import java.util.Date;
 
 @Entity
-@Table(name = "properties",
+@Table(name = "property_models",
         indexes = { @Index(name = "application_name_idx", columnList = "application_name"),
                     @Index(name = "property_name_idx", columnList = "property_name")})
 @NamedQueries({

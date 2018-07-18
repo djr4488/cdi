@@ -9,16 +9,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Properties;
 
 @Stateless
 public class DatabasePropertyRetrievalService {
     public static final Logger log = LoggerFactory.getLogger(DatabasePropertyRetrievalService.class);
-    @PersistenceContext(unitName = "property_model_persistence_unit")
+    @PersistenceContext(unitName = "config-persistence-unit")
     private EntityManager em;
 
     public List<PropertyModel> loadProperties(String applicationName) {
-        TypedQuery<PropertyModel> propertyModelQuery = em.createNamedQuery("propertyModel.loadAllPropertiesByApplicationName", PropertyModel.class);
-        propertyModelQuery.setParameter("applicationName", applicationName);
-        return propertyModelQuery.getResultList();
+        if (null != em) {
+            TypedQuery<PropertyModel> propertyModelQuery = em.createNamedQuery("propertyModel.loadAllPropertiesByApplicationName", PropertyModel.class);
+            propertyModelQuery.setParameter("applicationName", applicationName);
+            return propertyModelQuery.getResultList();
+        } else {
+            log.debug("loadProperties() database property loader not setup for property management");
+            return null;
+        }
     }
 }

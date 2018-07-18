@@ -22,28 +22,29 @@ public class Foo {
 
 ### Inject and use properties:
 ```
-public class FooPropertyManager {
+public class Foo {
   @Inject
-  @FileProperties
-  private Properties properties;
-
-  @Produces
-  public String injectString(InjectionPoint injectionPoint) {
-    String className = injectionPoint.getMember().getDeclaringClass().getSimpleName();
-    String fieldName = injectionPoint.getMember().getName();
-    return properties.getProperty(className + "_" + fieldName);
-  }
-}
+  @Config(propertyName="Foo_fooProperty", defaultValue="default")
+  private String fooProperty;
 ```
 
-#### In the case of FileProperties and DatabaseProperties the following snippet is used to find the appName
+### How and where to store properties:
+There are four ways this can have properties stored: file, environment, database, or in the annotation(if it cannot be found in the other three locations).
+
+In the case of file the properties file name in order to be found should follow the application name as defined by
 ```
 @Resource(lookup="java:app/AppName")
 private String appName;
 ```
-> In the case of FileProperties, the following is used to build the property filename; will default to appName = "app" in the case of no properties found
+For exaxmple if your pom.xml looked like
 ```
-String propertyFileName = appName+".properties";
+    <groupId>org.djr.foo</groupId>
+    <artifactId>foo-bar</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
 ```
-In the case of DatabaseProperties, the appName again defaults to "app", but if found via the resource lookup will use that.
-This is probably something I should look at, but since I use TomEE as my container and I know this works well for my purposes I have never changed.
+Then the properties file would need to be named: foo-bar.properties to be found.  In the case, the appName cannot be resolved, file properties will try to look for app.properties as a fallback.
+
+In the case of database properties, again the @Resource method of looking up the appName will be performed and will look for that in the database when looking up properties.
+You also, need to create a resource.xml config for TomEE and define where your config database will live.  In your resources.xml, the name of the resource should be ConfigDatabase.
+

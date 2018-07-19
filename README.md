@@ -6,10 +6,9 @@ Purpose of this was mostly for myself so I didn't have to repeat certain reused 
 2. environment stored properties
 3. file stored properties
 
-## A few things I'd like to do
-1. a little better annotation driven things for config; that would allow me to specify both the property to look up and a default value if one isn't found
-
-If you want to use it; feel free to fork it and use it to your hearts content; I am just not liable for anything it may or may not do.
+## Testing Coverage and Build Reports
+* Build: [![Build Status](https://travis-ci.org/djr4488/cdi.svg?branch=master)](https://travis-ci.org/djr4488/cdi.svg?branch=master)
+* Coverage: [![Coverage Status](https://coveralls.io/repos/djr4488/cdi/badge.svg?branch=master)](https://coveralls.io/r/djr4488/cdi?branch=master) [![codecov](https://codecov.io/gh/djr4488/cdi/branch/master/graph/badge.svg)](https://codecov.io/gh/djr4488/cdi)
 
 ## How to use
 ### Inject a logger:

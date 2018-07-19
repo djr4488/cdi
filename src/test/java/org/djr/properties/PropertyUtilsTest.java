@@ -13,20 +13,18 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package org.djr.cdi.properties.file;
+package org.djr.properties;
 
-import javax.inject.Qualifier;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import org.djr.cdi.properties.PropertyUtils;
+import org.junit.Test;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static junit.framework.Assert.assertEquals;
 
-@Qualifier
-@Retention(RUNTIME)
-@Target({METHOD, FIELD, PARAMETER, TYPE})
-public @interface FileProperties {
+public class PropertyUtilsTest {
+    private PropertyUtils propertyUtils = new PropertyUtils("appName-1.0.0");
+
+    @Test
+    public void testPropertyUtilsWithAppName() {
+        assertEquals("appName", propertyUtils.applicationName());
+    }
 }

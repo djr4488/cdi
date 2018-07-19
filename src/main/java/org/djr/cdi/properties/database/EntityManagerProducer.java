@@ -13,20 +13,22 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package org.djr.cdi.properties.file;
+package org.djr.cdi.properties.database;
 
-import javax.inject.Qualifier;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.spi.InjectionPoint;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+@ApplicationScoped
+public class EntityManagerProducer {
+    @PersistenceContext(unitName = "config-persistence-unit")
+    private EntityManager em;
 
-@Qualifier
-@Retention(RUNTIME)
-@Target({METHOD, FIELD, PARAMETER, TYPE})
-public @interface FileProperties {
+    @Produces
+    @DatabasePropertyEM
+    public EntityManager produceEntityManager(InjectionPoint injectionPoint) {
+        return em;
+    }
 }

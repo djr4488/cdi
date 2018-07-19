@@ -13,20 +13,23 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package org.djr.cdi.properties.file;
+package org.djr.properties;
 
-import javax.inject.Qualifier;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import org.djr.cdi.properties.PropertyLoader;
+import org.djr.cdi.properties.database.DatabaseProperties;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Produces;
+import java.util.Properties;
 
-@Qualifier
-@Retention(RUNTIME)
-@Target({METHOD, FIELD, PARAMETER, TYPE})
-public @interface FileProperties {
+@Alternative
+public class TestDatabaseProducer implements PropertyLoader {
+    private Properties properties = new Properties();
+
+    @Produces
+    @DatabaseProperties
+    public Properties getProperties() {
+        properties.put("db_prop", "db_test");
+        return properties;
+    }
 }

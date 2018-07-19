@@ -16,16 +16,24 @@
 package org.djr.properties.environment;
 
 import org.djr.cdi.properties.environment.SystemEnvironment;
+import org.jglue.cdiunit.AdditionalClasses;
+import org.jglue.cdiunit.CdiRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import javax.enterprise.inject.Alternative;
-import java.util.HashMap;
-import java.util.Map;
+import javax.inject.Inject;
 
-@Alternative
-public class TestSystemEnvironment extends SystemEnvironment {
-    public Map<String,String> getEnvironment() {
-        Map<String,String> envMap = new HashMap<>();
-        envMap.put("Test_Environment", "test");
-        return envMap;
+import static junit.framework.Assert.assertNotNull;
+
+@RunWith(CdiRunner.class)
+@AdditionalClasses(SystemEnvironment.class)
+public class SystemEnvironmentTest {
+    @Inject
+    private SystemEnvironment systemEnvironment;
+
+    @Test
+    public void testSystemEnvironmentNotNull() {
+        assertNotNull(systemEnvironment);
+        assertNotNull(systemEnvironment.getEnvironment());
     }
 }

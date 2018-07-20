@@ -15,9 +15,12 @@
  */
 package org.djr.cdi.properties;
 
+import org.djr.cdi.lookup.LookupCdi;
 import org.djr.cdi.properties.database.DatabaseProperties;
+import org.djr.cdi.properties.decrypt.Decryptor;
 import org.djr.cdi.properties.environment.EnvironmentProperties;
 import org.djr.cdi.properties.file.FileProperties;
+import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
@@ -37,21 +40,25 @@ public class PropertyResolver {
     @Inject
     @DatabaseProperties
     private Properties databaseProperties;
+    @Inject
+    private LookupCdi lookupCdi;
+    @Inject
+    private Logger log;
 
     public String getProperty(String defaultPropertyName, InjectionPoint injectionPoint) {
         Config config = injectionPoint.getAnnotated().getAnnotation(Config.class);
         String configPropertyName = config.propertyName();
-        String defaultPropertyValue = config.defaultValue();
+        String defaultPropertyValue = getProperty(config.defaultValue(), config);
         if (!isConfigPropertyProvided(configPropertyName)) {
             configPropertyName = defaultPropertyName;
         }
         String propertyValue = null;
         if (fileProperties.stringPropertyNames().contains(configPropertyName)) {
-            propertyValue = fileProperties.getProperty(configPropertyName);
+            propertyValue = getProperty(fileProperties.getProperty(configPropertyName), config);
         } else if (environmentProperties.stringPropertyNames().contains(configPropertyName)) {
-            propertyValue = environmentProperties.getProperty(configPropertyName);
+            propertyValue = getProperty(environmentProperties.getProperty(configPropertyName), config);
         } else if (databaseProperties.stringPropertyNames().contains(configPropertyName)) {
-            propertyValue = databaseProperties.getProperty(configPropertyName);
+            propertyValue = getProperty(databaseProperties.getProperty(configPropertyName), config);
         } else {
             propertyValue = defaultPropertyValue;
         }
@@ -105,5 +112,18 @@ public class PropertyResolver {
             isProvided = false;
         }
         return isProvided;
+    }
+
+    private String getProperty(String propertyValue, Config config) {
+        String classNameToLookup = config.defaultDecryptor().getSimpleName();
+        boolean isEncrypted = config.isEncrypted();
+        Decryptor decryptor;
+        try {
+            decryptor = lookupCdi.getBeanByNameOfClass(classNameToLookup, Decryptor.class);
+        } catch (Exception ex) {
+            log.error("getProperty() unable to lookup decryptor class", ex);
+            throw new PropertyLoadException("Failed to get decryptor, failed to load property", ex);
+        }
+        return isEncrypted ? decryptor.decrypt(propertyValue) : propertyValue;
     }
 }

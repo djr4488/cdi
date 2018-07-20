@@ -15,13 +15,18 @@
  */
 package org.djr.properties;
 
+import org.djr.cdi.logs.LoggerProducer;
+import org.djr.cdi.lookup.LookupCdi;
 import org.djr.cdi.properties.Config;
+import org.djr.cdi.properties.PropertyLoadException;
 import org.djr.cdi.properties.PropertyResolver;
 import org.djr.cdi.properties.database.DatabaseProperties;
 import org.djr.cdi.properties.database.DatabasePropertiesLoader;
 import org.djr.cdi.properties.database.DatabasePropertyEM;
 import org.djr.cdi.properties.database.DatabasePropertyRetrievalService;
 import org.djr.cdi.properties.database.EntityManagerProducer;
+import org.djr.cdi.properties.decrypt.Decryptor;
+import org.djr.cdi.properties.decrypt.DefaultDecryptor;
 import org.djr.cdi.properties.environment.EnvironmentProperties;
 import org.djr.cdi.properties.environment.EnvironmentPropertiesLoader;
 import org.djr.cdi.properties.file.FilePropertiesLoader;
@@ -40,7 +45,8 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses({ PropertyResolver.class, Config.class, FilePropertiesLoader.class, EntityManagerProducer.class })
+@AdditionalClasses({ PropertyResolver.class, Config.class, FilePropertiesLoader.class, EntityManagerProducer.class,
+                     LoggerProducer.class, LookupCdi.class, DefaultDecryptor.class, Decryptor.class })
 @ActivatedAlternatives({ TestEnvironmentProducer.class, TestDatabaseProducer.class })
 public class PropertyResolverTest {
     @Mock
@@ -80,12 +86,17 @@ public class PropertyResolverTest {
     @Config(propertyName = "db_prop", defaultValue = "notDbProp")
     private String dbProp;
 
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_encryptedProperty", defaultValue="some string", isEncrypted = true)
+    private String decrypted;
+
     @Test
     public void testPropertySetWhenInProperties() {
         assertNotNull(testProperty);
         assertEquals("testPropertyValue", testProperty);
         assertEquals("env_test", envProp);
         assertEquals("db_test", dbProp);
+        assertEquals("Some String", decrypted);
     }
 
     @Test

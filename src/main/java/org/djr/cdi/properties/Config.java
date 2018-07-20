@@ -15,6 +15,8 @@
  */
 package org.djr.cdi.properties;
 
+import org.djr.cdi.properties.decrypt.DefaultDecryptor;
+
 import javax.enterprise.util.Nonbinding;
 import javax.inject.Qualifier;
 import java.lang.annotation.Documented;
@@ -37,4 +39,8 @@ public @interface Config {
     String propertyName() default "";
     @Nonbinding
     String defaultValue() default "";
+    @Nonbinding
+    boolean isEncrypted() default false;
+    @Nonbinding
+    Class<?> defaultDecryptor() default DefaultDecryptor.class;
 }

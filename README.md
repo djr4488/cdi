@@ -1,10 +1,9 @@
 # CDI Library
 Purpose of this was mostly for myself so I didn't have to repeat certain reused things in every app I wrote.  I figured I'd share them with the world.
 
-## A few useful things for me were, property injection multiple ways:
-1. database stored properties
-2. environment stored properties
-3. file stored properties
+## A few useful things for me were:
+1. property injection multiple ways: file, database, environment, or annotation
+2. injectable logging
 
 ## Testing Coverage and Build Reports
 * Build: [![Build Status](https://travis-ci.org/djr4488/cdi.svg?branch=master)](https://travis-ci.org/djr4488/cdi.svg?branch=master)

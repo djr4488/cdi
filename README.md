@@ -6,7 +6,7 @@ Purpose of this was mostly for myself so I didn't have to repeat certain reused 
 2. injectable logging
 
 ## Testing Coverage and Build Reports
-* Build: [![Build Status](https://travis-ci.org/djr4488/cdi.svg?branch=master)](https://travis-ci.org/djr4488/cdi.svg?branch=master)
+* Build: [![Build Status](https://travis-ci.org/djr4488/cdi.svg?branch=master)](https://travis-ci.org/djr4488/cdi)
 * Coverage: [![Coverage Status](https://coveralls.io/repos/djr4488/cdi/badge.svg?branch=master)](https://coveralls.io/r/djr4488/cdi?branch=master) [![codecov](https://codecov.io/gh/djr4488/cdi/branch/master/graph/badge.svg)](https://codecov.io/gh/djr4488/cdi)
 
 ## How to use

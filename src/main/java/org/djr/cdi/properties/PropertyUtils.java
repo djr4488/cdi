@@ -35,14 +35,17 @@ public class PropertyUtils {
 
     public String applicationName() {
         String applicationName = "app";
-        if (null != appName) {
+        if (null != appName && 0 < appName.length()) {
             Pattern appNamePattern = Pattern.compile("\\-\\d+");
             Matcher appNameMatcher = appNamePattern.matcher(appName);
-            appNameMatcher.find();
-            int indexOfFirstDash = appNameMatcher.start();
-            applicationName = appName;
-            if (indexOfFirstDash != -1) {
-                applicationName = appName.substring(0, indexOfFirstDash);
+            if (appNameMatcher.find()) {
+                int indexOfFirstDash = appNameMatcher.start();
+                applicationName = appName;
+                if (indexOfFirstDash != -1) {
+                    applicationName = appName.substring(0, indexOfFirstDash);
+                }
+            } else {
+                applicationName = appName;
             }
         }
         return applicationName;

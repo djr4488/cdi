@@ -81,7 +81,7 @@ public class Foo {
 }
 ```
 
-### Inject customer Jackson ObjectMapper
+### Inject custom Jackson ObjectMapper
 The example uses the implmentation provided in JsonConverter.
 ```
     @JacksonModule(jacksonModules = {JodaModule.class})

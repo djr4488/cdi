@@ -96,6 +96,7 @@ The example uses the implmentation provided in JsonConverter.
 ```
 
 ### Inject and use properties:
+You can provide an optional propertyName and defaultValue, if you don't provide an optional property name then the property will be searched by class name property name.  e.g. Foo_fooProperty.
 ```
 public class Foo {
   @Inject
@@ -104,22 +105,38 @@ public class Foo {
 ```
 
 ### How and where to store properties:
-There are four ways this can have properties stored: file, environment, database, or in the annotation(if it cannot be found in the other three locations).
+There are four places you can have properties be accessed
+1. file based properties
+2. database based properties
+3. environment based properties
+4. defined in the @Config annotation
 
-In the case of file the properties file name in order to be found should follow the application name as defined by
+#### File based properties
+Work by looking up your application name via a @Resource look up
 ```
 @Resource(lookup="java:app/AppName")
 private String appName;
 ```
-For exaxmple if your pom.xml looked like
+Which of course comes from your pom.xml(I use maven) 
 ```
     <groupId>org.djr.foo</groupId>
     <artifactId>foo-bar</artifactId>
     <version>1.0.0</version>
     <packaging>war</packaging>
 ```
-Then the properties file would need to be named: foo-bar.properties to be found.  In the case, the appName cannot be resolved, file properties will try to look for app.properties as a fallback.
+Using this strategy the propery file name ultimately becomes **foo-bar.properties** I strip off the version from it.  Whether that should happen or not, I'm still debating.
 
-In the case of database properties, again the @Resource method of looking up the appName will be performed and will look for that in the database when looking up properties.
-You also, need to create a resource.xml config for TomEE and define where your config database will live.  In your resources.xml, the name of the resource should be ConfigDatabase.
+#### Environment properties
+Look in your environment for the property by looking at System.getenv();
 
+#### Database properties
+Look in a database table named "property_models" which are configured by application name, property name, and property value.
+
+#### Annotation
+If not found anywhere else, and a defaultValue is provided, then it will use the defaultValue.
+```
+public class Foo {
+  @Inject
+  @Config(propertyName="Foo_fooProperty", defaultValue="default")
+  private String fooProperty;
+```

@@ -15,7 +15,6 @@
  */
 package org.djr.cdi.properties.file;
 
-import org.djr.cdi.properties.PropertyLoadException;
 import org.djr.cdi.properties.PropertyLoader;
 import org.djr.cdi.properties.PropertyUtils;
 import org.slf4j.Logger;
@@ -44,8 +43,8 @@ public class FilePropertiesLoader implements PropertyLoader {
         try {
             prop.load(in);
             in.close();
-        } catch (IOException ioEx) {
-            throw new PropertyLoadException("Failed to load properties", ioEx);
+        } catch (IOException | NullPointerException ex) {
+            log.warn("getProperties() failed to load properties for propertyFileName:{}", propertyFileName, ex);
         }
         return prop;
     }

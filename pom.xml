@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.djr4488</groupId>
-    <artifactId>cdilib-utils</artifactId>
+    <artifactId>cdilib.utils</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 

@@ -8,6 +8,7 @@
     <artifactId>cdilib.utils</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
+    <url>https://djr4488.github.io/cdi</url>
 
     <name>CDI Helpers</name>
     <description>A set of common things I use frequently that make starting new applications easier</description>
@@ -21,7 +22,7 @@
     </licenses>
 
     <scm>
-        <url>http://github.com/djr4488/cdi</url>
+        <url>https://github.com/djr4488/cdi</url>
         <connection>scm:git:git://github.com/djr4488/cdi.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/djr4488/cdi.git</developerConnection>
         <tag>HEAD</tag>

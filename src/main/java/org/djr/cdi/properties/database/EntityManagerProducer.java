@@ -23,7 +23,7 @@ import javax.persistence.PersistenceContext;
 
 @ApplicationScoped
 public class EntityManagerProducer {
-    @PersistenceContext(unitName = "config-persistence-unit")
+    @PersistenceContext(unitName = "config-database")
     private EntityManager em;
 
     @Produces

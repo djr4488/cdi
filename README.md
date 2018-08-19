@@ -13,6 +13,15 @@ Purpose of this was mostly for myself so I didn't have to repeat certain reused 
 * Coverage: [![Coverage Status](https://coveralls.io/repos/djr4488/cdi/badge.svg?branch=master)](https://coveralls.io/r/djr4488/cdi?branch=master) [![codecov](https://codecov.io/gh/djr4488/cdi/branch/master/graph/badge.svg)](https://codecov.io/gh/djr4488/cdi)
 
 ## How to use
+### Maven pom
+```
+<dependency>
+  <groupId>io.github.djr4488</groupId>
+  <artifactId>cdilib.utils</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
 ### Inject a logger:
 ```
 public class Foo {

@@ -2,6 +2,7 @@ package org.djr.cdi.converter.json.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.djr.cdi.logs.LoggerProducer;
+import org.djr.cdi.logs.Slf4jLogger;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -19,6 +20,7 @@ import static org.junit.Assert.fail;
 @AdditionalClasses({ JsonConverter.class, ObjectMapperProducer.class, LoggerProducer.class })
 public class JacksonConverterTest {
     @Inject
+    @Slf4jLogger
     private Logger log;
     @Inject
     private JsonConverter jsonConverter;

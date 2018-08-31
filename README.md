@@ -26,6 +26,7 @@ Purpose of this was mostly for myself so I didn't have to repeat certain reused 
 ```
 public class Foo {
   @Inject
+  @Slf4jLogger
   private Logger log;
 }
 ```

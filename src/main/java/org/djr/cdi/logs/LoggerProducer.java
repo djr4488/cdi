@@ -25,8 +25,9 @@ import javax.enterprise.inject.spi.InjectionPoint;
 @ApplicationScoped
 public class LoggerProducer {
     @Produces
+    @Slf4jLogger
     public Logger produceLogger(InjectionPoint injectionPoint) {
-        String name = injectionPoint.getMember().getDeclaringClass().getSimpleName();
-        return LoggerFactory.getLogger(name);
+        Class clazz = injectionPoint.getMember().getDeclaringClass();
+        return LoggerFactory.getLogger(clazz);
     }
 }

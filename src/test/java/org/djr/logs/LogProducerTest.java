@@ -16,6 +16,7 @@
 package org.djr.logs;
 
 import org.djr.cdi.logs.LoggerProducer;
+import org.djr.cdi.logs.Slf4jLogger;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -31,6 +32,7 @@ import static junit.framework.Assert.assertNotNull;
 @AdditionalClasses({LoggerProducer.class})
 public class LogProducerTest {
     @Inject
+    @Slf4jLogger
     private Logger log;
 
     @Test

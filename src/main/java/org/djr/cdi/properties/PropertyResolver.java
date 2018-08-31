@@ -15,6 +15,7 @@
  */
 package org.djr.cdi.properties;
 
+import org.djr.cdi.logs.Slf4jLogger;
 import org.djr.cdi.lookup.LookupCdi;
 import org.djr.cdi.properties.database.DatabaseProperties;
 import org.djr.cdi.properties.decrypt.Decryptor;
@@ -43,6 +44,7 @@ public class PropertyResolver {
     @Inject
     private LookupCdi lookupCdi;
     @Inject
+    @Slf4jLogger
     private Logger log;
 
     public String getProperty(String defaultPropertyName, InjectionPoint injectionPoint) {

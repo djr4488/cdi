@@ -43,6 +43,5 @@ public class LogProducerTest {
     @Test
     public void testLogging() {
         log.info("Test");
-        assertEquals(this.getClass().getDeclaringClass(), log.getClass());
     }
 }

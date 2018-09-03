@@ -1,6 +1,7 @@
 package org.djr.cdi.converter.json.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.djr.cdi.logs.LoggerProducer;
 import org.djr.cdi.logs.Slf4jLogger;
 import org.jglue.cdiunit.AdditionalClasses;
@@ -14,6 +15,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 @RunWith(CdiRunner.class)
@@ -42,6 +44,24 @@ public class JacksonConverterTest {
         } catch (IOException ioEx) {
             log.error("Failed with IOException: ", ioEx);
             fail("Failed with IOException");
+        }
+    }
+
+    @Test
+    public void testToObjectFromJsonNodeAndBackAgain() {
+        try {
+            TestRequest tr = new TestRequest("test1", "test2", "test3");
+            JsonNode jsonNode = jsonConverter.toJsonNodeFromObject(tr);
+            assertTrue(jsonNode.has("test property"));
+            assertTrue(jsonNode.has("test_property2"));
+            assertTrue(jsonNode.has("testProperty3"));
+            TestRequest result = jsonConverter.toObjectFromJsonNode(jsonNode, TestRequest.class);
+            assertEquals(tr.getTestProperty(), result.getTestProperty());
+            assertEquals(tr.getTestProperty2(), result.getTestProperty2());
+            assertEquals(tr.getTestProperty3(), result.getTestProperty3());
+        } catch (IOException ioEx) {
+            log.error("failed", ioEx);
+            fail("Failed");
         }
     }
 }

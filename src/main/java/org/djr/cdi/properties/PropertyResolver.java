@@ -42,8 +42,6 @@ public class PropertyResolver {
     @DatabaseProperties
     private Properties databaseProperties;
     @Inject
-    private LookupCdi lookupCdi;
-    @Inject
     @Slf4jLogger
     private Logger log;
 
@@ -121,7 +119,7 @@ public class PropertyResolver {
         boolean isEncrypted = config.isEncrypted();
         Decryptor decryptor;
         try {
-            decryptor = lookupCdi.getBeanByNameOfClass(classNameToLookup, Decryptor.class);
+            decryptor = LookupCdi.getBeanByNameOfClass(classNameToLookup, Decryptor.class);
         } catch (Exception ex) {
             log.error("getProperty() unable to lookup decryptor class", ex);
             throw new PropertyLoadException("Failed to get decryptor, failed to load property", ex);

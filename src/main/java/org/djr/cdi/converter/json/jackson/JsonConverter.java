@@ -17,6 +17,7 @@ package org.djr.cdi.converter.json.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
@@ -46,5 +47,15 @@ public class JsonConverter {
     public <R> R toObjectFromString(String jsonToConvertFrom, Class<R> classToConvertTo)
     throws IOException, JsonParsingException{
         return objectMapper.readValue(jsonToConvertFrom, classToConvertTo);
+    }
+
+    public <R> R toObjectFromJsonNode(JsonNode jsonNode, Class<R> objectClass)
+    throws IOException {
+        return toObjectFromString(toJsonString(jsonNode), objectClass);
+    }
+
+    public <T> JsonNode toJsonNodeFromObject(T object)
+    throws IOException {
+        return toObjectFromString(toJsonString(object), JsonNode.class);
     }
 }

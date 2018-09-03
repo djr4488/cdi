@@ -13,16 +13,13 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package org.djr.properties.environment;
+package org.djr.cdi.properties.environment;
 
 import org.djr.cdi.properties.PropertyUtils;
-import org.djr.cdi.properties.environment.EnvironmentProperties;
-import org.djr.cdi.properties.environment.EnvironmentPropertiesLoader;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.EnableAlternatives;
-import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
+import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.inject.Inject;
 import java.util.Properties;
@@ -30,7 +27,7 @@ import java.util.Properties;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@ExtendWith(WeldJunit5AutoExtension.class)
+@EnableAutoWeld
 @AddBeanClasses({EnvironmentProperties.class, EnvironmentPropertiesLoader.class, PropertyUtils.class, TestSystemEnvironment.class})
 @EnableAlternatives({TestSystemEnvironment.class})
 public class EnvironmentPropertiesTest {

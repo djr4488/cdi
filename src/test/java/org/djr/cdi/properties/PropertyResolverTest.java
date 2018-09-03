@@ -13,13 +13,10 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package org.djr.properties;
+package org.djr.cdi.properties;
 
 import org.djr.cdi.logs.LoggerProducer;
 import org.djr.cdi.lookup.LookupCdi;
-import org.djr.cdi.properties.Config;
-import org.djr.cdi.properties.PropertyResolver;
-import org.djr.cdi.properties.PropertyUtils;
 import org.djr.cdi.properties.database.DatabasePropertyEM;
 import org.djr.cdi.properties.database.EntityManagerProducer;
 import org.djr.cdi.properties.decrypt.Decryptor;
@@ -27,9 +24,8 @@ import org.djr.cdi.properties.decrypt.DefaultDecryptor;
 import org.djr.cdi.properties.file.FilePropertiesLoader;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.EnableAlternatives;
-import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
+import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 
 import javax.enterprise.inject.Produces;
@@ -39,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@ExtendWith(WeldJunit5AutoExtension.class)
+@EnableAutoWeld
 @AddBeanClasses({ PropertyResolver.class, Config.class, FilePropertiesLoader.class, EntityManagerProducer.class,
                   LoggerProducer.class, LookupCdi.class, DefaultDecryptor.class, Decryptor.class, PropertyUtils.class,
                   TestEnvironmentProducer.class, TestDatabaseProducer.class })

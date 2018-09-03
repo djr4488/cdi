@@ -13,21 +13,17 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package org.djr.properties.database;
+package org.djr.cdi.properties.database;
 
 import org.djr.cdi.properties.PropertyUtils;
-import org.djr.cdi.properties.database.DatabaseProperties;
-import org.djr.cdi.properties.database.DatabasePropertiesLoader;
-import org.djr.cdi.properties.database.EntityManagerProducer;
 import org.djr.cdi.properties.database.model.PropertyModel;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.EnableAlternatives;
-import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
+import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.inject.Inject;
 
@@ -38,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@ExtendWith(WeldJunit5AutoExtension.class)
+@EnableAutoWeld
 @AddBeanClasses({DatabaseProperties.class, DatabasePropertiesLoader.class, PropertyUtils.class, EntityManagerProducer.class,
                  TestDatabasePropertyRetrievalService.class})
 @EnableAlternatives({TestDatabasePropertyRetrievalService.class})

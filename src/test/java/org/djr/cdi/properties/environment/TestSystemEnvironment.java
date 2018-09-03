@@ -13,9 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package org.djr.properties.environment;
-
-import org.djr.cdi.properties.environment.SystemEnvironment;
+package org.djr.cdi.properties.environment;
 
 import javax.enterprise.inject.Alternative;
 import java.util.HashMap;

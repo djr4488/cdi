@@ -13,23 +13,17 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package org.djr.properties;
+package org.djr.cdi.properties;
 
-import org.djr.cdi.properties.PropertyLoader;
-import org.djr.cdi.properties.environment.EnvironmentProperties;
+import org.junit.jupiter.api.Test;
 
-import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Produces;
-import java.util.Properties;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Alternative
-public class TestEnvironmentProducer implements PropertyLoader {
-    private Properties properties = new Properties();
+public class PropertyUtilsTest {
+    private PropertyUtils propertyUtils = new PropertyUtils("appName-1.0.0");
 
-    @Produces
-    @EnvironmentProperties
-    public Properties getProperties() {
-        properties.put("env_prop", "env_test");
-        return properties;
+    @Test
+    public void testPropertyUtilsWithAppName() {
+        assertEquals("appName", propertyUtils.applicationName());
     }
 }

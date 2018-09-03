@@ -7,14 +7,13 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
+import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.inject.Inject;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@ExtendWith(WeldJunit5AutoExtension.class)
+@EnableAutoWeld
 @AddBeanClasses({ ObjectMapperProducer.class })
 public class ObjectMapperProducerTest {
     @JacksonModule(jacksonModules = {com.fasterxml.jackson.datatype.jsr310.JavaTimeModule.class})

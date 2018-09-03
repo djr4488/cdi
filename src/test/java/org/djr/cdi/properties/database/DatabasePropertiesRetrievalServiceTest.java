@@ -13,11 +13,9 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package org.djr.properties.database;
+package org.djr.cdi.properties.database;
 
 import name.falgout.jeffrey.testing.junit.mockito.MockitoExtension;
-import org.djr.cdi.properties.database.DatabasePropertyEM;
-import org.djr.cdi.properties.database.DatabasePropertyRetrievalService;
 import org.djr.cdi.properties.database.model.PropertyModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

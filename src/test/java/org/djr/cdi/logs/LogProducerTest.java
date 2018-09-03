@@ -13,27 +13,31 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package org.djr.properties.environment;
+package org.djr.cdi.logs;
 
-import org.djr.cdi.properties.environment.SystemEnvironment;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
+import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
 
 import javax.inject.Inject;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@ExtendWith(WeldJunit5AutoExtension.class)
-@AddBeanClasses(SystemEnvironment.class)
-public class SystemEnvironmentTest {
+@EnableAutoWeld
+@AddBeanClasses({LoggerProducer.class})
+public class LogProducerTest {
     @Inject
-    private SystemEnvironment systemEnvironment;
+    @Slf4jLogger
+    private Logger log;
 
     @Test
-    public void testSystemEnvironmentNotNull() {
-        assertNotNull(systemEnvironment);
-        assertNotNull(systemEnvironment.getEnvironment());
+    public void testLoggerNotNull() {
+        assertNotNull(log);
+    }
+
+    @Test
+    public void testLogging() {
+        log.info("Test");
     }
 }

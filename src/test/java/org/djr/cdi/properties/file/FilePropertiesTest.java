@@ -13,34 +13,35 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package org.djr.logs;
+package org.djr.cdi.properties.file;
 
-import org.djr.cdi.logs.LoggerProducer;
-import org.djr.cdi.logs.Slf4jLogger;
+import org.djr.cdi.properties.PropertyLoader;
+import org.djr.cdi.properties.PropertyUtils;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
+import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.slf4j.Logger;
 
 import javax.inject.Inject;
 
+import java.util.Properties;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@ExtendWith(WeldJunit5AutoExtension.class)
-@AddBeanClasses({LoggerProducer.class})
-public class LogProducerTest {
+@EnableAutoWeld
+@AddBeanClasses({ FileProperties.class, PropertyLoader.class, FilePropertiesLoader.class, PropertyUtils.class })
+public class FilePropertiesTest {
     @Inject
-    @Slf4jLogger
-    private Logger log;
+    @FileProperties
+    private Properties properties;
 
     @Test
-    public void testLoggerNotNull() {
-        assertNotNull(log);
+    public void testNotNull() {
+        assertNotNull(properties);
     }
 
     @Test
-    public void testLogging() {
-        log.info("Test");
+    public void testReadProperties() {
+        assertEquals("test", properties.getProperty("Test_Property"));
     }
 }

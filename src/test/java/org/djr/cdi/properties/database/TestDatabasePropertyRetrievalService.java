@@ -13,23 +13,21 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package org.djr.properties;
+package org.djr.cdi.properties.database;
 
-import org.djr.cdi.properties.PropertyLoader;
-import org.djr.cdi.properties.database.DatabaseProperties;
+import org.djr.cdi.properties.database.model.PropertyModel;
 
 import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Produces;
-import java.util.Properties;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Alternative
-public class TestDatabaseProducer implements PropertyLoader {
-    private Properties properties = new Properties();
-
-    @Produces
-    @DatabaseProperties
-    public Properties getProperties() {
-        properties.put("db_prop", "db_test");
-        return properties;
+public class TestDatabasePropertyRetrievalService extends DatabasePropertyRetrievalService {
+    @Override
+    public List<PropertyModel> loadProperties(String applicationName) {
+        List<PropertyModel> propertyModels = new ArrayList<>();
+        propertyModels.add(new PropertyModel(1L, 1L, new Date(), "Test-App", "Test_Property", "test"));
+        return propertyModels;
     }
 }

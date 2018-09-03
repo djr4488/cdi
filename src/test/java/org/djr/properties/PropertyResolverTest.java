@@ -18,36 +18,32 @@ package org.djr.properties;
 import org.djr.cdi.logs.LoggerProducer;
 import org.djr.cdi.lookup.LookupCdi;
 import org.djr.cdi.properties.Config;
-import org.djr.cdi.properties.PropertyLoadException;
 import org.djr.cdi.properties.PropertyResolver;
-import org.djr.cdi.properties.database.DatabaseProperties;
-import org.djr.cdi.properties.database.DatabasePropertiesLoader;
+import org.djr.cdi.properties.PropertyUtils;
 import org.djr.cdi.properties.database.DatabasePropertyEM;
-import org.djr.cdi.properties.database.DatabasePropertyRetrievalService;
 import org.djr.cdi.properties.database.EntityManagerProducer;
 import org.djr.cdi.properties.decrypt.Decryptor;
 import org.djr.cdi.properties.decrypt.DefaultDecryptor;
-import org.djr.cdi.properties.environment.EnvironmentProperties;
-import org.djr.cdi.properties.environment.EnvironmentPropertiesLoader;
 import org.djr.cdi.properties.file.FilePropertiesLoader;
-import org.jglue.cdiunit.ActivatedAlternatives;
-import org.jglue.cdiunit.AdditionalClasses;
-import org.jglue.cdiunit.CdiRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.jboss.weld.junit5.auto.EnableAlternatives;
+import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@RunWith(CdiRunner.class)
-@AdditionalClasses({ PropertyResolver.class, Config.class, FilePropertiesLoader.class, EntityManagerProducer.class,
-                     LoggerProducer.class, LookupCdi.class, DefaultDecryptor.class, Decryptor.class })
-@ActivatedAlternatives({ TestEnvironmentProducer.class, TestDatabaseProducer.class })
+@ExtendWith(WeldJunit5AutoExtension.class)
+@AddBeanClasses({ PropertyResolver.class, Config.class, FilePropertiesLoader.class, EntityManagerProducer.class,
+                  LoggerProducer.class, LookupCdi.class, DefaultDecryptor.class, Decryptor.class, PropertyUtils.class,
+                  TestEnvironmentProducer.class, TestDatabaseProducer.class })
+@EnableAlternatives({TestEnvironmentProducer.class, TestDatabaseProducer.class})
 public class PropertyResolverTest {
     @Mock
     @Produces

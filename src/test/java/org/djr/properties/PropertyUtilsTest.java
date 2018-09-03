@@ -16,9 +16,9 @@
 package org.djr.properties;
 
 import org.djr.cdi.properties.PropertyUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PropertyUtilsTest {
     private PropertyUtils propertyUtils = new PropertyUtils("appName-1.0.0");

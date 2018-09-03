@@ -4,22 +4,22 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.djr.cdi.logs.LoggerProducer;
 import org.djr.cdi.logs.Slf4jLogger;
-import org.jglue.cdiunit.AdditionalClasses;
-import org.jglue.cdiunit.CdiRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;
 
 import java.io.IOException;
 
-import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-@RunWith(CdiRunner.class)
-@AdditionalClasses({ JsonConverter.class, ObjectMapperProducer.class, LoggerProducer.class })
+@ExtendWith(WeldJunit5AutoExtension.class)
+@AddBeanClasses({ JsonConverter.class, ObjectMapperProducer.class, LoggerProducer.class })
 public class JacksonConverterTest {
     @Inject
     @Slf4jLogger

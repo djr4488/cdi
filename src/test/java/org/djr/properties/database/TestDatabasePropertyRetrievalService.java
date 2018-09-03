@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 @Alternative
-public class TestDatabasePropertyRetrievalSerice extends DatabasePropertyRetrievalService {
+public class TestDatabasePropertyRetrievalService extends DatabasePropertyRetrievalService {
     @Override
     public List<PropertyModel> loadProperties(String applicationName) {
         List<PropertyModel> propertyModels = new ArrayList<>();

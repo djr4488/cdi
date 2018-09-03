@@ -16,17 +16,17 @@
 package org.djr.properties.environment;
 
 import org.djr.cdi.properties.environment.SystemEnvironment;
-import org.jglue.cdiunit.AdditionalClasses;
-import org.jglue.cdiunit.CdiRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.inject.Inject;
 
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@RunWith(CdiRunner.class)
-@AdditionalClasses(SystemEnvironment.class)
+@ExtendWith(WeldJunit5AutoExtension.class)
+@AddBeanClasses(SystemEnvironment.class)
 public class SystemEnvironmentTest {
     @Inject
     private SystemEnvironment systemEnvironment;

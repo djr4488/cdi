@@ -19,20 +19,20 @@ import org.djr.cdi.properties.PropertyLoader;
 import org.djr.cdi.properties.PropertyUtils;
 import org.djr.cdi.properties.file.FileProperties;
 import org.djr.cdi.properties.file.FilePropertiesLoader;
-import org.jglue.cdiunit.AdditionalClasses;
-import org.jglue.cdiunit.CdiRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.inject.Inject;
 
 import java.util.Properties;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@RunWith(CdiRunner.class)
-@AdditionalClasses({ FileProperties.class, PropertyLoader.class, FilePropertiesLoader.class, PropertyUtils.class })
+@ExtendWith(WeldJunit5AutoExtension.class)
+@AddBeanClasses({ FileProperties.class, PropertyLoader.class, FilePropertiesLoader.class, PropertyUtils.class })
 public class FilePropertiesTest {
     @Inject
     @FileProperties

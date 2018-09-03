@@ -6,17 +6,16 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.jglue.cdiunit.AdditionalClasses;
-import org.jglue.cdiunit.CdiRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.inject.Inject;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import static junit.framework.Assert.assertNotNull;
-
-@RunWith(CdiRunner.class)
-@AdditionalClasses({ ObjectMapperProducer.class })
+@ExtendWith(WeldJunit5AutoExtension.class)
+@AddBeanClasses({ ObjectMapperProducer.class })
 public class ObjectMapperProducerTest {
     @JacksonModule(jacksonModules = {com.fasterxml.jackson.datatype.jsr310.JavaTimeModule.class})
     @JacksonMapperFeature(features = {

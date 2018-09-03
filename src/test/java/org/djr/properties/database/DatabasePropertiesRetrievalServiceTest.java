@@ -15,16 +15,16 @@
  */
 package org.djr.properties.database;
 
+import name.falgout.jeffrey.testing.junit.mockito.MockitoExtension;
 import org.djr.cdi.properties.database.DatabasePropertyEM;
 import org.djr.cdi.properties.database.DatabasePropertyRetrievalService;
 import org.djr.cdi.properties.database.model.PropertyModel;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
@@ -33,11 +33,11 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DatabasePropertiesRetrievalServiceTest {
     @Mock
     @Produces
@@ -48,7 +48,7 @@ public class DatabasePropertiesRetrievalServiceTest {
     @InjectMocks
     private DatabasePropertyRetrievalService databasePropertyRetrievalService = new DatabasePropertyRetrievalService();
 
-    @Before
+    @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(databasePropertyRetrievalService);
     }

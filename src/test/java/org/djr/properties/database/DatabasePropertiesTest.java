@@ -20,27 +20,28 @@ import org.djr.cdi.properties.database.DatabaseProperties;
 import org.djr.cdi.properties.database.DatabasePropertiesLoader;
 import org.djr.cdi.properties.database.EntityManagerProducer;
 import org.djr.cdi.properties.database.model.PropertyModel;
-import org.jglue.cdiunit.ActivatedAlternatives;
-import org.jglue.cdiunit.AdditionalClasses;
-import org.jglue.cdiunit.CdiRunner;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.jboss.weld.junit5.auto.EnableAlternatives;
+import org.jboss.weld.junit5.auto.WeldJunit5AutoExtension;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.inject.Inject;
 
 import java.util.Date;
 import java.util.Properties;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(CdiRunner.class)
-@AdditionalClasses({DatabaseProperties.class, DatabasePropertiesLoader.class, PropertyUtils.class, EntityManagerProducer.class})
-@ActivatedAlternatives({TestDatabasePropertyRetrievalSerice.class})
+@ExtendWith(WeldJunit5AutoExtension.class)
+@AddBeanClasses({DatabaseProperties.class, DatabasePropertiesLoader.class, PropertyUtils.class, EntityManagerProducer.class,
+                 TestDatabasePropertyRetrievalService.class})
+@EnableAlternatives({TestDatabasePropertyRetrievalService.class})
 public class DatabasePropertiesTest {
     @Inject
     @DatabaseProperties

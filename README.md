@@ -39,14 +39,12 @@ public class Foo {
 ...
 }
 ```
-Then you would look by -  I think I'd rather make this a static class so the lookup bean could be used in a non-managed CDI class, however I have not done that currently.
+Then you would look by
 ```
 @ApplicationScoped
 public class Bar {
-  @Inject
-  Lookup lookup;
   public void fooBar() {
-    Foo foo = lookup.get("Foo", Foo.class);
+    Foo foo = LookupCdi.getBeanByNameOfClass("Foo", Foo.class);
   }
 }  
 ```
@@ -134,7 +132,7 @@ Which of course comes from your pom.xml(I use maven)
     <version>1.0.0</version>
     <packaging>war</packaging>
 ```
-Using this strategy the propery file name ultimately becomes **foo-bar.properties** I strip off the version from it.  Whether that should happen or not, I'm still debating.
+Using this strategy the property file name ultimately becomes **foo-bar.properties** I strip off the version from it.  Whether that should happen or not, I'm still debating.
 
 #### Environment properties
 Look in your environment for the property by looking at System.getenv();

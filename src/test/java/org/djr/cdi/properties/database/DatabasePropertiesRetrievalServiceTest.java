@@ -15,14 +15,12 @@
  */
 package org.djr.cdi.properties.database;
 
-import name.falgout.jeffrey.testing.junit.mockito.MockitoExtension;
 import org.djr.cdi.properties.database.model.PropertyModel;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
@@ -44,12 +42,7 @@ public class DatabasePropertiesRetrievalServiceTest {
     @Mock
     private TypedQuery<PropertyModel> propertyModelQuery;
     @InjectMocks
-    private DatabasePropertyRetrievalService databasePropertyRetrievalService = new DatabasePropertyRetrievalService();
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(databasePropertyRetrievalService);
-    }
+    private DatabasePropertyRetrievalService databasePropertyRetrievalService;
 
     @Test
     public void testWhenDatabasePropertiesFound() {

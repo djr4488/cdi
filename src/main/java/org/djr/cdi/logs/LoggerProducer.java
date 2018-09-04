@@ -1,5 +1,5 @@
 /**
- * Copyright 11-9-2017 Danny Rucker
+ * Copyright 2017 - 2018 Danny Rucker
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.

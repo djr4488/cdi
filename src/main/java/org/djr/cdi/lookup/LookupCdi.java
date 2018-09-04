@@ -1,5 +1,7 @@
 package org.djr.cdi.lookup;
 
+import org.apiguardian.api.API;
+
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
@@ -15,6 +17,7 @@ public class LookupCdi {
      * @throws Exception if something goes horribly wrong I suppose it could get thrown
      */
     @SuppressWarnings("unchecked")
+    @API(status = API.Status.MAINTAINED, since = "2018-09-03")
     public static <T> T getBeanByNameOfClass(String name, Class<T> clazz)
     throws Exception {
         BeanManager bm = CDI.current().getBeanManager();

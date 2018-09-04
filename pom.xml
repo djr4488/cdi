@@ -206,6 +206,14 @@
             <version>2.10</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- api guardian -->
+        <dependency>
+            <groupId>org.apiguardian</groupId>
+            <artifactId>apiguardian-api</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

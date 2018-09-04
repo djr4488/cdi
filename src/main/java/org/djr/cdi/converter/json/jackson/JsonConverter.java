@@ -1,5 +1,5 @@
 /**
- * Copyright 11-9-2017 Danny Rucker
+ * Copyright 2017 - 2018 Danny Rucker
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import org.apiguardian.api.API;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -39,21 +40,25 @@ public class JsonConverter {
     @JacksonObjectMapper
     private ObjectMapper objectMapper;
 
+    @API(status = API.Status.MAINTAINED, since = "2017.11.09")
     public <T> String toJsonString(T objectToConvertToJsonString)
     throws JsonProcessingException {
         return objectMapper.writeValueAsString(objectToConvertToJsonString);
     }
 
+    @API(status = API.Status.MAINTAINED, since = "2017.11.09")
     public <R> R toObjectFromString(String jsonToConvertFrom, Class<R> classToConvertTo)
     throws IOException, JsonParsingException{
         return objectMapper.readValue(jsonToConvertFrom, classToConvertTo);
     }
 
+    @API(status = API.Status.MAINTAINED, since = "2018.09.03")
     public <R> R toObjectFromJsonNode(JsonNode jsonNode, Class<R> objectClass)
     throws IOException {
         return toObjectFromString(toJsonString(jsonNode), objectClass);
     }
 
+    @API(status = API.Status.MAINTAINED, since = "2018.09.03")
     public <T> JsonNode toJsonNodeFromObject(T object)
     throws IOException {
         return toObjectFromString(toJsonString(object), JsonNode.class);

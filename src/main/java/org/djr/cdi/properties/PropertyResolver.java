@@ -15,6 +15,7 @@
  */
 package org.djr.cdi.properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.djr.cdi.logs.Slf4jLogger;
 import org.djr.cdi.lookup.LookupCdi;
 import org.djr.cdi.properties.database.DatabaseProperties;
@@ -108,7 +109,7 @@ public class PropertyResolver {
 
     private boolean isConfigPropertyProvided(String configProperty) {
         boolean isProvided = true;
-        if (null == configProperty || !(configProperty.trim().length() > 0)) {
+        if (null == StringUtils.trimToNull(configProperty)) {
             isProvided = false;
         }
         return isProvided;

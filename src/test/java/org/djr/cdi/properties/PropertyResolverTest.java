@@ -82,6 +82,10 @@ public class PropertyResolverTest {
     @Config(propertyName = "PropertyResolverTest_encryptedProperty", defaultValue="some string", isEncrypted = true)
     private String decrypted;
 
+    @Inject
+    @Config
+    private String noDefaults;
+
     @Test
     public void testPropertySetWhenInProperties() {
         assertNotNull(testProperty);
@@ -99,5 +103,6 @@ public class PropertyResolverTest {
         assertEquals(1, testInteger.intValue());
         assertEquals(2, testLong.longValue());
         assertEquals(3, testByte.byteValue());
+        assertEquals("noDefaults", noDefaults);
     }
 }

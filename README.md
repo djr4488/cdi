@@ -18,7 +18,7 @@ Purpose of this was mostly for myself so I didn't have to repeat certain reused 
 <dependency>
   <groupId>io.github.djr4488</groupId>
   <artifactId>cdilib.utils</artifactId>
-  <version>2.0.0</version>
+  <version>2.1.0</version>
 </dependency>
 ```
 

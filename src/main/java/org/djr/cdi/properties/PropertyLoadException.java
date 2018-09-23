@@ -34,4 +34,8 @@ public class PropertyLoadException extends RuntimeException {
     public PropertyLoadException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
+    public PropertyLoadException(String message, String propertyName) {
+        super(String.format(message, propertyName));
+    }
 }

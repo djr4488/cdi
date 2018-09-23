@@ -31,9 +31,13 @@ import org.mockito.Mock;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
+import java.util.List;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @EnableAutoWeld
 @AddBeanClasses({ PropertyResolver.class, Config.class, FilePropertiesLoader.class, EntityManagerProducer.class,
@@ -86,6 +90,38 @@ public class PropertyResolverTest {
     @Config
     private String noDefaults;
 
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_stringMap", defaultValue = "test1|value1,test2|value2")
+    private Map<String, String> stringMap;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_intMap", defaultValue = "test1|1,test2|2")
+    private Map<String, Integer> intMap;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_longMap", defaultValue = "test1|1,test2|2")
+    private Map<String, Long> longMap;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_byteMap", defaultValue = "test1|1,test2|2")
+    private Map<String, Byte> byteMap;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_booleanMap", defaultValue = "test1|true,test2|false")
+    private Map<String, Boolean> booleanMap;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_floatMap", defaultValue = "test1|1.0,test2|2.0")
+    private Map<String, Float> floatMap;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_doubleMap", defaultValue = "test1|1.0,test2|2.0")
+    private Map<String, Double> doubleMap;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_stringList", defaultValue = "test1|test2")
+    private List<String> stringList;
+
     @Test
     public void testPropertySetWhenInProperties() {
         assertNotNull(testProperty);
@@ -104,5 +140,24 @@ public class PropertyResolverTest {
         assertEquals(2, testLong.longValue());
         assertEquals(3, testByte.byteValue());
         assertEquals("noDefaults", noDefaults);
+        assertNotNull(stringMap);
+        assertEquals("value1", stringMap.get("test1"));
+        assertEquals("value2", stringMap.get("test2"));
+        assertNotNull(intMap);
+        assertEquals(1, intMap.get("test1").intValue());
+        assertNotNull(longMap);
+        assertEquals(1L, longMap.get("test1").longValue());
+        assertNotNull(byteMap);
+        assertEquals(1, byteMap.get("test1").byteValue());
+        assertNotNull(booleanMap);
+        assertTrue(booleanMap.get("test1"));
+        assertFalse(booleanMap.get("test2"));
+        assertNotNull(floatMap);
+        assertEquals(1.0f, floatMap.get("test1").floatValue());
+        assertNotNull(doubleMap);
+        assertEquals(1.0d, doubleMap.get("test1").doubleValue());
+        assertNotNull(stringList);
+        assertEquals("test1", stringList.get(0));
+        assertEquals("test2", stringList.get(1));
     }
 }

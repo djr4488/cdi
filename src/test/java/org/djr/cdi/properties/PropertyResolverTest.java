@@ -146,6 +146,14 @@ public class PropertyResolverTest {
     @Config(propertyName = "PropertyResolverTest_doubleList", defaultValue = "1.1|2.0")
     private List<Double> doubleList;
 
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_floatVal", defaultValue = "1.1")
+    private Float floatTest;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_doubleVal", defaultValue = "1.2")
+    private Double doubleTest;
+
     @Test
     public void testPropertySetWhenInProperties() {
         assertNotNull(testProperty);
@@ -196,5 +204,7 @@ public class PropertyResolverTest {
         assertEquals(1.0f, floatList.get(0).floatValue());
         assertNotNull(doubleList);
         assertEquals(1.1d, doubleList.get(0).doubleValue());
+        assertEquals(1.1f, floatTest.floatValue());
+        assertEquals(1.2d, doubleTest.doubleValue());
     }
 }

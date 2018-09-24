@@ -122,6 +122,30 @@ public class PropertyResolverTest {
     @Config(propertyName = "PropertyResolverTest_stringList", defaultValue = "test1|test2")
     private List<String> stringList;
 
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_intList", defaultValue = "1|2")
+    private List<Integer> intList;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_longList", defaultValue = "1|2")
+    private List<Long> longList;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_byteList", defaultValue = "1|2")
+    private List<Byte> byteList;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_booleanList", defaultValue = "true|false")
+    private List<Boolean> booleanList;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_floatList", defaultValue = "1.0|2")
+    private List<Float> floatList;
+
+    @Inject
+    @Config(propertyName = "PropertyResolverTest_doubleList", defaultValue = "1.1|2.0")
+    private List<Double> doubleList;
+
     @Test
     public void testPropertySetWhenInProperties() {
         assertNotNull(testProperty);
@@ -159,5 +183,18 @@ public class PropertyResolverTest {
         assertNotNull(stringList);
         assertEquals("test1", stringList.get(0));
         assertEquals("test2", stringList.get(1));
+        assertNotNull(intList);
+        assertEquals(1, intList.get(0).intValue());
+        assertEquals(2, intList.get(1).intValue());
+        assertNotNull(longList);
+        assertEquals(1L, longList.get(0).longValue());
+        assertNotNull(byteList);
+        assertEquals(1, byteList.get(0).byteValue());
+        assertNotNull(booleanList);
+        assertEquals(true, booleanList.get(0));
+        assertNotNull(floatList);
+        assertEquals(1.0f, floatList.get(0).floatValue());
+        assertNotNull(doubleList);
+        assertEquals(1.1d, doubleList.get(0).doubleValue());
     }
 }

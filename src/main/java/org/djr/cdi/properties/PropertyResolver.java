@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -137,6 +138,48 @@ public class PropertyResolver {
     @Produces
     @Dependent
     @Config
+    public List<Integer> injectIntegerList(InjectionPoint injectionPoint) {
+        return convertStringListToListOfTypeR(Integer::parseInt, injectStringList(injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public List<Long> injectLongList(InjectionPoint injectionPoint) {
+        return convertStringListToListOfTypeR(Long::parseLong, injectStringList(injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public List<Byte> injectByteList(InjectionPoint injectionPoint) {
+        return convertStringListToListOfTypeR(Byte::parseByte, injectStringList(injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public List<Boolean> injectBooleanList(InjectionPoint injectionPoint) {
+        return convertStringListToListOfTypeR(Boolean::parseBoolean, injectStringList(injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public List<Float> injectFloatList(InjectionPoint injectionPoint) {
+        return convertStringListToListOfTypeR(Float::parseFloat, injectStringList(injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public List<Double> injectDoubleList(InjectionPoint injectionPoint) {
+        return convertStringListToListOfTypeR(Double::parseDouble, injectStringList(injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
     public Map<String, String> injectStringToStringMap(InjectionPoint injectionPoint) {
         return splitStringByToken(getProperty(getPropertyName(injectionPoint), injectionPoint), ",")
                 .stream()
@@ -202,6 +245,13 @@ public class PropertyResolver {
                 .stream()
                 .map(sl -> splitStringByToken(sl, pipe))
                 .collect(Collectors.toMap(s -> s.get(0), s -> Double.parseDouble(s.get(1))));
+    }
+
+    private <R> List<R> convertStringListToListOfTypeR(Function<String, R> function, List<String> toConvert) {
+        return toConvert
+                .stream()
+                .map(function)
+                .collect(Collectors.toList());
     }
 
     private List<String> splitStringByToken(String toSplit, String token) {

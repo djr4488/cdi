@@ -29,7 +29,14 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.function.Function;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class PropertyResolver {
@@ -42,9 +49,11 @@ public class PropertyResolver {
     @Inject
     @DatabaseProperties
     private Properties databaseProperties;
+    private static final String PROP_VALUE_UNDEFINED = "No property value defined for %1$s.";
     @Inject
     @Slf4jLogger
     private Logger log;
+    private static final String pipe = Pattern.quote("|");
 
     public String getProperty(String defaultPropertyName, InjectionPoint injectionPoint) {
         Config config = injectionPoint.getAnnotated().getAnnotation(Config.class);
@@ -61,7 +70,11 @@ public class PropertyResolver {
         } else if (databaseProperties.stringPropertyNames().contains(configPropertyName)) {
             propertyValue = getProperty(databaseProperties.getProperty(configPropertyName), config);
         } else {
-            propertyValue = defaultPropertyValue;
+            if (null != StringUtils.trimToNull(defaultPropertyValue)) {
+                propertyValue = defaultPropertyValue;
+            } else {
+                throw new PropertyLoadException(PROP_VALUE_UNDEFINED, configPropertyName);
+            }
         }
         return propertyValue;
     }
@@ -99,6 +112,136 @@ public class PropertyResolver {
     @Config
     public Byte injectByte(InjectionPoint injectionPoint) {
         return Byte.parseByte(getProperty(getPropertyName(injectionPoint), injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public Float injectFloat(InjectionPoint injectionPoint) {
+        return Float.parseFloat(getProperty(getPropertyName(injectionPoint), injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public Double injectDouble(InjectionPoint injectionPoint) {
+        return Double.parseDouble(getProperty(getPropertyName(injectionPoint), injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public List<String> injectStringList(InjectionPoint injectionPoint) {
+        return splitStringByToken(getProperty(getPropertyName(injectionPoint), injectionPoint), pipe);
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public List<Integer> injectIntegerList(InjectionPoint injectionPoint) {
+        return convertStringListToListOfTypeR(Integer::parseInt, injectStringList(injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public List<Long> injectLongList(InjectionPoint injectionPoint) {
+        return convertStringListToListOfTypeR(Long::parseLong, injectStringList(injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public List<Byte> injectByteList(InjectionPoint injectionPoint) {
+        return convertStringListToListOfTypeR(Byte::parseByte, injectStringList(injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public List<Boolean> injectBooleanList(InjectionPoint injectionPoint) {
+        return convertStringListToListOfTypeR(Boolean::parseBoolean, injectStringList(injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public List<Float> injectFloatList(InjectionPoint injectionPoint) {
+        return convertStringListToListOfTypeR(Float::parseFloat, injectStringList(injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public List<Double> injectDoubleList(InjectionPoint injectionPoint) {
+        return convertStringListToListOfTypeR(Double::parseDouble, injectStringList(injectionPoint));
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public Map<String, String> injectStringToStringMap(InjectionPoint injectionPoint) {
+        return convertStringListToMapOfTypeR(String::new, injectionPoint);
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public Map<String, Boolean> injectStringToBooleanMap(InjectionPoint injectionPoint) {
+        return convertStringListToMapOfTypeR(Boolean::parseBoolean, injectionPoint);
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public Map<String, Integer> injectStringToIntegerMap(InjectionPoint injectionPoint) {
+        return convertStringListToMapOfTypeR(Integer::parseInt, injectionPoint);
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public Map<String, Long> injectStringToLongMap(InjectionPoint injectionPoint) {
+        return convertStringListToMapOfTypeR(Long::parseLong, injectionPoint);
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public Map<String, Byte> injectStringToByteMap(InjectionPoint injectionPoint) {
+        return convertStringListToMapOfTypeR(Byte::parseByte, injectionPoint);
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public Map<String, Float> injectStringToFloatMap(InjectionPoint injectionPoint) {
+        return convertStringListToMapOfTypeR(Float::parseFloat, injectionPoint);
+    }
+
+    @Produces
+    @Dependent
+    @Config
+    public Map<String, Double> injectStringToDoubleMap(InjectionPoint injectionPoint) {
+        return convertStringListToMapOfTypeR(Double::parseDouble, injectionPoint);
+    }
+
+    private <R> List<R> convertStringListToListOfTypeR(Function<String, R> function, List<String> toConvert) {
+        return toConvert
+                .stream()
+                .map(function)
+                .collect(Collectors.toList());
+    }
+
+    private <R> Map<String, R> convertStringListToMapOfTypeR(Function<String, R> function, InjectionPoint injectionPoint) {
+        return splitStringByToken(getProperty(getPropertyName(injectionPoint), injectionPoint), ",")
+                .stream()
+                .map(sl -> splitStringByToken(sl, pipe))
+                .collect(Collectors.toMap(s -> s.get(0), s -> function.apply(s.get(1))));
+    }
+
+    private List<String> splitStringByToken(String toSplit, String token) {
+        return Arrays.asList(toSplit.split(token));
     }
 
     private String getPropertyName(InjectionPoint injectionPoint) {

@@ -181,70 +181,49 @@ public class PropertyResolver {
     @Dependent
     @Config
     public Map<String, String> injectStringToStringMap(InjectionPoint injectionPoint) {
-        return splitStringByToken(getProperty(getPropertyName(injectionPoint), injectionPoint), ",")
-                .stream()
-                .map(sl -> splitStringByToken(sl, pipe))
-                .collect(Collectors.toMap(s -> s.get(0), s -> s.get(1)));
+        return convertStringListToMapOfTypeR(String::new, injectionPoint);
     }
 
     @Produces
     @Dependent
     @Config
     public Map<String, Boolean> injectStringToBooleanMap(InjectionPoint injectionPoint) {
-        return splitStringByToken(getProperty(getPropertyName(injectionPoint), injectionPoint), ",")
-                .stream()
-                .map(sl -> splitStringByToken(sl, pipe))
-                .collect(Collectors.toMap(s -> s.get(0), s -> Boolean.parseBoolean(s.get(1))));
+        return convertStringListToMapOfTypeR(Boolean::parseBoolean, injectionPoint);
     }
 
     @Produces
     @Dependent
     @Config
     public Map<String, Integer> injectStringToIntegerMap(InjectionPoint injectionPoint) {
-        return splitStringByToken(getProperty(getPropertyName(injectionPoint), injectionPoint), ",")
-                .stream()
-                .map(sl -> splitStringByToken(sl, pipe))
-                .collect(Collectors.toMap(s -> s.get(0), s -> Integer.parseInt(s.get(1))));
+        return convertStringListToMapOfTypeR(Integer::parseInt, injectionPoint);
     }
 
     @Produces
     @Dependent
     @Config
     public Map<String, Long> injectStringToLongMap(InjectionPoint injectionPoint) {
-        return splitStringByToken(getProperty(getPropertyName(injectionPoint), injectionPoint), ",")
-                .stream()
-                .map(sl -> splitStringByToken(sl, pipe))
-                .collect(Collectors.toMap(s -> s.get(0), s -> Long.parseLong(s.get(1))));
+        return convertStringListToMapOfTypeR(Long::parseLong, injectionPoint);
     }
 
     @Produces
     @Dependent
     @Config
     public Map<String, Byte> injectStringToByteMap(InjectionPoint injectionPoint) {
-        return splitStringByToken(getProperty(getPropertyName(injectionPoint), injectionPoint), ",")
-                .stream()
-                .map(sl -> splitStringByToken(sl, pipe))
-                .collect(Collectors.toMap(s -> s.get(0), s -> Byte.parseByte(s.get(1))));
+        return convertStringListToMapOfTypeR(Byte::parseByte, injectionPoint);
     }
 
     @Produces
     @Dependent
     @Config
     public Map<String, Float> injectStringToFloatMap(InjectionPoint injectionPoint) {
-        return splitStringByToken(getProperty(getPropertyName(injectionPoint), injectionPoint), ",")
-                .stream()
-                .map(sl -> splitStringByToken(sl, pipe))
-                .collect(Collectors.toMap(s -> s.get(0), s -> Float.parseFloat(s.get(1))));
+        return convertStringListToMapOfTypeR(Float::parseFloat, injectionPoint);
     }
 
     @Produces
     @Dependent
     @Config
     public Map<String, Double> injectStringToDoubleMap(InjectionPoint injectionPoint) {
-        return splitStringByToken(getProperty(getPropertyName(injectionPoint), injectionPoint), ",")
-                .stream()
-                .map(sl -> splitStringByToken(sl, pipe))
-                .collect(Collectors.toMap(s -> s.get(0), s -> Double.parseDouble(s.get(1))));
+        return convertStringListToMapOfTypeR(Double::parseDouble, injectionPoint);
     }
 
     private <R> List<R> convertStringListToListOfTypeR(Function<String, R> function, List<String> toConvert) {
@@ -252,6 +231,13 @@ public class PropertyResolver {
                 .stream()
                 .map(function)
                 .collect(Collectors.toList());
+    }
+
+    private <R> Map<String, R> convertStringListToMapOfTypeR(Function<String, R> function, InjectionPoint injectionPoint) {
+        return splitStringByToken(getProperty(getPropertyName(injectionPoint), injectionPoint), ",")
+                .stream()
+                .map(sl -> splitStringByToken(sl, pipe))
+                .collect(Collectors.toMap(s -> s.get(0), s -> function.apply(s.get(1))));
     }
 
     private List<String> splitStringByToken(String toSplit, String token) {

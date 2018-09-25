@@ -38,5 +38,7 @@ public class PropertyLoadExceptionTest {
         plEx = new PropertyLoadException("Some message", new IOException("IO Ex"), true, true);
         assertTrue(plEx.getCause() instanceof IOException);
         assertEquals("Some message", plEx.getMessage());
+        plEx = new PropertyLoadException("Test message %1$s", "testProperty");
+        assertEquals("Test message testProperty", plEx.getMessage());
     }
 }

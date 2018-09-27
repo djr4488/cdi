@@ -15,6 +15,7 @@
  */
 package org.djr.cdi.properties;
 
+import org.djr.cdi.properties.decrypt.Decryptor;
 import org.djr.cdi.properties.decrypt.DefaultDecryptor;
 
 import javax.enterprise.util.Nonbinding;
@@ -42,5 +43,5 @@ public @interface Config {
     @Nonbinding
     boolean isEncrypted() default false;
     @Nonbinding
-    Class<?> defaultDecryptor() default DefaultDecryptor.class;
+    Class<? extends Decryptor> defaultDecryptor() default DefaultDecryptor.class;
 }

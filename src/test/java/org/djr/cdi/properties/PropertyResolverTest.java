@@ -26,9 +26,12 @@ import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.EnableAlternatives;
 import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 
 import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.spi.Annotated;
+import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
 import java.util.List;
@@ -37,7 +40,10 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @EnableAutoWeld
 @AddBeanClasses({ PropertyResolver.class, Config.class, FilePropertiesLoader.class, EntityManagerProducer.class,
@@ -49,6 +55,9 @@ public class PropertyResolverTest {
     @Produces
     @DatabasePropertyEM
     private EntityManagerProducer entityManagerProducer;
+
+    @Inject
+    private PropertyResolver propertyResolver;
 
     @Inject
     @Config(defaultValue = "testDefaultPropertyValue")
@@ -154,6 +163,9 @@ public class PropertyResolverTest {
     @Config(propertyName = "PropertyResolverTest_doubleVal", defaultValue = "1.2")
     private Double doubleTest;
 
+    @Config(propertyName = "undefinedProperty")
+    private String undefinedProperty;
+
     @Test
     public void testPropertySetWhenInProperties() {
         assertNotNull(testProperty);
@@ -206,5 +218,18 @@ public class PropertyResolverTest {
         assertEquals(1.1d, doubleList.get(0).doubleValue());
         assertEquals(1.1f, floatTest.floatValue());
         assertEquals(1.2d, doubleTest.doubleValue());
+    }
+
+    @Test
+    public void propertyResolverWhenPropertyNotFound() {
+        final Executable executable = () -> {
+            InjectionPoint injectionPoint = mock(InjectionPoint.class);
+            Config config = this.getClass().getDeclaredField("undefinedProperty").getAnnotation(Config.class);
+            Annotated annotated = mock(Annotated.class);
+            when(injectionPoint.getAnnotated()).thenReturn(annotated);
+            when(annotated.getAnnotation(Config.class)).thenReturn(config);
+            propertyResolver.getProperty("undefinedProperty", injectionPoint);
+        };
+        assertThrows(PropertyLoadException.class, executable);
     }
 }

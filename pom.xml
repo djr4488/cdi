@@ -6,7 +6,7 @@
 
     <groupId>io.github.djr4488</groupId>
     <artifactId>cdilib.utils</artifactId>
-    <version>2.2.1</version>
+    <version>2.2.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <url>https://djr4488.github.io/cdi</url>
 

@@ -29,10 +29,6 @@ public class PropertyUtils {
 
     }
 
-    public PropertyUtils(String appName) {
-        this.appName = appName;
-    }
-
     public String applicationName() {
         String applicationName = "app";
         if (null != appName && 0 < appName.length()) {

@@ -2,6 +2,7 @@ package org.djr.cdi.converter.json.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.djr.cdi.converter.json.TestRequest;
 import org.djr.cdi.logs.LoggerProducer;
 import org.djr.cdi.logs.Slf4jLogger;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
@@ -19,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @EnableAutoWeld
-@AddBeanClasses({ JsonConverter.class, ObjectMapperProducer.class, LoggerProducer.class })
+@AddBeanClasses({ JsonConverter.class, ObjectMapperProducer.class, LoggerProducer.class } )
 public class JacksonConverterTest {
     @Inject
     @Slf4jLogger

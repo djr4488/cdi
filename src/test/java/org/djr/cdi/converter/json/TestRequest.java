@@ -1,14 +1,17 @@
-package org.djr.cdi.converter.json.jackson;
+package org.djr.cdi.converter.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+
+import javax.json.bind.annotation.JsonbProperty;
 
 public class TestRequest {
     @JsonProperty("test property")
+    @JsonbProperty("test property1")
     private String testProperty;
     @JsonProperty("test_property2")
+    @JsonbProperty("test_property2")
     private String testProperty2;
+    @JsonbProperty("testProperty3")
     private String testProperty3;
 
     public TestRequest() {
@@ -42,10 +45,5 @@ public class TestRequest {
 
     public void setTestProperty3(String testProperty3) {
         this.testProperty3 = testProperty3;
-    }
-
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

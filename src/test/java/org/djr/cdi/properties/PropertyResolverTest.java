@@ -17,8 +17,6 @@ package org.djr.cdi.properties;
 
 import org.djr.cdi.logs.LoggerProducer;
 import org.djr.cdi.lookup.LookupCdi;
-import org.djr.cdi.properties.database.DatabasePropertyEM;
-import org.djr.cdi.properties.database.EntityManagerProducer;
 import org.djr.cdi.properties.decrypt.Decryptor;
 import org.djr.cdi.properties.decrypt.DefaultDecryptor;
 import org.djr.cdi.properties.file.FilePropertiesLoader;
@@ -27,9 +25,7 @@ import org.jboss.weld.junit5.auto.EnableAlternatives;
 import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-import org.mockito.Mock;
 
-import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.Annotated;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
@@ -46,16 +42,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @EnableAutoWeld
-@AddBeanClasses({ PropertyResolver.class, Config.class, FilePropertiesLoader.class, EntityManagerProducer.class,
+@AddBeanClasses({ PropertyResolver.class, Config.class, FilePropertiesLoader.class,
                   LoggerProducer.class, LookupCdi.class, DefaultDecryptor.class, Decryptor.class, PropertyUtils.class,
-                  TestEnvironmentProducer.class, TestDatabaseProducer.class })
-@EnableAlternatives({TestEnvironmentProducer.class, TestDatabaseProducer.class})
+                  TestEnvironmentProducer.class })
+@EnableAlternatives(TestEnvironmentProducer.class)
 public class PropertyResolverTest {
-    @Mock
-    @Produces
-    @DatabasePropertyEM
-    private EntityManagerProducer entityManagerProducer;
-
     @Inject
     private PropertyResolver propertyResolver;
 

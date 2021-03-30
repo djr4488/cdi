@@ -115,9 +115,8 @@ public class Foo {
 ### How and where to store properties:
 There are four places you can have properties be accessed
 1. file based properties
-2. database based properties
-3. environment based properties
-4. defined in the @Config annotation
+2. environment based properties
+3. defined in the @Config annotation
 
 #### File based properties
 Work by looking up your application name via a @Resource look up
@@ -136,9 +135,6 @@ Using this strategy the property file name ultimately becomes **foo-bar.properti
 
 #### Environment properties
 Look in your environment for the property by looking at System.getenv();
-
-#### Database properties
-Look in a database table named "property_models" which are configured by application name, property name, and property value.
 
 #### Annotation
 If not found anywhere else, and a defaultValue is provided, then it will use the defaultValue.

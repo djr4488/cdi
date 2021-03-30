@@ -15,12 +15,19 @@
  */
 package org.djr.cdi.properties;
 
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.Test;
+
+import javax.inject.Inject;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@EnableAutoWeld
+@AddBeanClasses(PropertyUtils.class)
 public class PropertyUtilsTest {
-    private PropertyUtils propertyUtils = new PropertyUtils("appName-1.0.0");
+    @Inject
+    private PropertyUtils propertyUtils;
 
     @Test
     public void testPropertyUtilsWithAppName() {

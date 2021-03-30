@@ -15,10 +15,10 @@
  */
 package org.djr.cdi.properties;
 
+
 import org.apache.commons.lang3.StringUtils;
 import org.djr.cdi.logs.Slf4jLogger;
 import org.djr.cdi.lookup.LookupCdi;
-import org.djr.cdi.properties.database.DatabaseProperties;
 import org.djr.cdi.properties.decrypt.Decryptor;
 import org.djr.cdi.properties.environment.EnvironmentProperties;
 import org.djr.cdi.properties.file.FileProperties;
@@ -45,9 +45,6 @@ public class PropertyResolver {
     @Inject
     @EnvironmentProperties
     private Properties environmentProperties;
-    @Inject
-    @DatabaseProperties
-    private Properties databaseProperties;
     private static final String PROP_VALUE_UNDEFINED = "No property value defined for %1$s.";
     @Inject
     @Slf4jLogger
@@ -66,8 +63,6 @@ public class PropertyResolver {
             propertyValue = getProperty(fileProperties.getProperty(configPropertyName), config);
         } else if (environmentProperties.stringPropertyNames().contains(configPropertyName)) {
             propertyValue = getProperty(environmentProperties.getProperty(configPropertyName), config);
-        } else if (databaseProperties.stringPropertyNames().contains(configPropertyName)) {
-            propertyValue = getProperty(databaseProperties.getProperty(configPropertyName), config);
         } else {
             if (null != StringUtils.trimToNull(defaultPropertyValue)) {
                 propertyValue = defaultPropertyValue;

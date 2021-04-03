@@ -79,10 +79,6 @@ public class PropertyResolverTest {
     private String envProp;
 
     @Inject
-    @Config(propertyName = "db_prop", defaultValue = "notDbProp")
-    private String dbProp;
-
-    @Inject
     @Config(propertyName = "PropertyResolverTest_encryptedProperty", defaultValue="some string", isEncrypted = true)
     private String decrypted;
 
@@ -162,7 +158,6 @@ public class PropertyResolverTest {
         assertNotNull(testProperty);
         assertEquals("testPropertyValue", testProperty);
         assertEquals("env_test", envProp);
-        assertEquals("db_test", dbProp);
         assertEquals("Some String", decrypted);
     }
 

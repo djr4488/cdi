@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testRequest>
+    <testproperty1>testProperty1</testproperty1>
+    <test_property2>testProperty2</test_property2>
+    <testProperty3>testProperty3</testProperty3>
+</testRequest>

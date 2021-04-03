@@ -31,6 +31,6 @@ public class PropertyUtilsTest {
 
     @Test
     public void testPropertyUtilsWithAppName() {
-        assertEquals("appName", propertyUtils.applicationName());
+        assertEquals("app", propertyUtils.applicationName());
     }
 }

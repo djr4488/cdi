@@ -1,17 +1,22 @@
-package org.djr.cdi.converter.json;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package org.djr.cdi.converter;
 
 import javax.json.bind.annotation.JsonbProperty;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class TestRequest {
-    @JsonProperty("test property")
     @JsonbProperty("test property1")
+    @XmlElement(name = "testproperty1")
     private String testProperty;
-    @JsonProperty("test_property2")
     @JsonbProperty("test_property2")
+    @XmlElement(name = "test_property2")
     private String testProperty2;
     @JsonbProperty("testProperty3")
+    @XmlElement(name = "testProperty3")
     private String testProperty3;
 
     public TestRequest() {

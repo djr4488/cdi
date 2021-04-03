@@ -61,12 +61,13 @@ public class Person {
 ```
 To convert to JSON
 ```
+@ApplicationScoped
 public class Foo {
-  @ApplicationScoped
-  private JsonConverter jsonConverter;
+  @Inject
+  private JsonObjectConverter jsonConverter;
   
   public String convertToJson(Person person) {
-      return jsonConverter.toJsonString(person);
+      return jsonConverter.toJson(person);
   }
 }
 ```
@@ -79,28 +80,43 @@ Given the following JSON and the above Person class
 ```
 Then to convert json to Person
 ```
+@ApplicationScoped
 public class Foo {
-  @ApplicationScoped
-  private JsonConverter jsonConverter;
+  @Inject
+  private JsonObjectConverter jsonConverter;
   
-  public String convertToPerson(String jsonPerson) {
-      return jsonConverter.toObjectFromString(jsonPerson, Person.class);
+  public Person convertToPerson(String jsonPerson) {
+      return jsonConverter.fromJson(jsonPerson, Person.class);
   }
 }
 ```
 
-### Inject custom Jackson ObjectMapper
-The example uses the implmentation provided in JsonConverter.
+To convert to XML
 ```
-    @JacksonModule(jacksonModules = {JodaModule.class})
-    @JacksonMapperFeature(features = {
-            @MapperFeatureConfig(feature = MapperFeature.REQUIRE_SETTERS_FOR_GETTERS, value = false),
-            @MapperFeatureConfig(feature = MapperFeature.AUTO_DETECT_GETTERS, value = true)})
-    @JacksonDeserializationFeature(features = {
-            @DeserializationFeatureConfig(feature = DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, value = false)})
-    @Inject
-    @JacksonObjectMapper
-    private ObjectMapper objectMapper;
+@ApplicationScoped
+public class Foo {
+  @Inject
+  private XmlObjectConverter xmlConverter;
+  
+  public String convertToXml(Person person) 
+  throws Exception {
+    return xmlConverter.toXml(person);
+  }
+}
+```
+
+To convert XML to Person
+```
+@ApplicationScoped
+public class Foo {
+  @Inject
+  private XmlObjectConverter xmlConverter;
+  
+  public Person convertToPerson(String xmlPerson) 
+  throws Exception {
+    return xmlConverter.fromXml(xml, Person.class);
+  }
+}
 ```
 
 ### Inject and use properties:

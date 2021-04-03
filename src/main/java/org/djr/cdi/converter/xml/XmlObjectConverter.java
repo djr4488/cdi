@@ -29,7 +29,7 @@ public class XmlObjectConverter {
 
     public <T> String toXml(T from)
     throws JAXBException, IOException {
-        JAXBContext context = JAXBContext.newInstance(from.getClass());
+        JAXBContext context = getContext(from.getClass());
         Marshaller m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         StringWriter sw = new StringWriter();
@@ -39,14 +39,20 @@ public class XmlObjectConverter {
 
     public <T> T fromXml(String xml, Class<T> to)
     throws JAXBException, IOException {
-        JAXBContext context;
-        if (contexts.containsKey(to.getCanonicalName())) {
-            context = contexts.get(to.getCanonicalName());
-        } else {
-            context = JAXBContext.newInstance(to);
-            contexts.put(to.getCanonicalName(), context);
-        }
+        JAXBContext context = getContext(to);
         return (T) context.createUnmarshaller()
                 .unmarshal(new StringReader(xml));
+    }
+
+    private <T> JAXBContext getContext(Class<T> contextObject)
+    throws JAXBException {
+        JAXBContext context;
+        if (contexts.containsKey(contextObject.getCanonicalName())) {
+            context = contexts.get(contextObject.getCanonicalName());
+        } else {
+            context = JAXBContext.newInstance(contextObject);
+            contexts.put(contextObject.getCanonicalName(), context);
+        }
+        return context;
     }
 }

@@ -29,6 +29,7 @@ public class JsonObjectConverter {
 
     public <T> T fromJson(String from, Class<T> toClass) {
         T to = jsonb.fromJson(from, toClass);
+        log.trace("fromJson() from:{}, to:{}", from, to);
         return to;
     }
 }

@@ -34,14 +34,17 @@ public class XmlObjectConverter {
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         StringWriter sw = new StringWriter();
         m.marshal(from, sw);
-        return sw.toString();
+        String xml = sw.toString();
+        log.trace("toXml() from:{}, to:{}", from, xml);
+        return xml;
     }
 
-    public <T> T fromXml(String xml, Class<T> to)
+    public <T> T fromXml(String from, Class<T> toClass)
     throws JAXBException, IOException {
-        JAXBContext context = getContext(to);
-        return (T) context.createUnmarshaller()
-                .unmarshal(new StringReader(xml));
+        JAXBContext context = getContext(toClass);
+        T to = toClass.cast(context.createUnmarshaller().unmarshal((new StringReader(from))));
+        log.trace("fromXml() from:{}, to:{}", from, to);
+        return to;
     }
 
     private <T> JAXBContext getContext(Class<T> contextObject)

@@ -1,5 +1,6 @@
 package org.djr.cdi.converter.xml;
 
+import org.djr.cdi.converter.TestChild;
 import org.djr.cdi.converter.TestRequest;
 import org.djr.cdi.logs.LoggerProducer;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
@@ -7,6 +8,11 @@ import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import static org.djr.cdi.converter.LoadResourceUtil.getResourceFromFile;
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +28,11 @@ public class XmlObjectConverterTest {
     public void testToXml() {
         String expected = getResourceFromFile(FILE);
         try {
-            String xml = converter.toXml(new TestRequest("testProperty1", "testProperty2", "testProperty3"));
+            LocalDate localDate = LocalDate.now().withYear(2021).withMonth(4).withDayOfMonth(1);
+            LocalDateTime localDateTime = localDate.atStartOfDay();
+            ZonedDateTime zonedDateTime = localDate.atStartOfDay(ZoneId.of("America/Chicago"));
+            TestChild testChild = new TestChild(localDate, localDateTime, zonedDateTime, zonedDateTime);
+            String xml = converter.toXml(new TestRequest("testProperty1", "testProperty2", "testProperty3", testChild));
             assertEquals(expected, xml);
         } catch (Exception ex) {
             fail("unexpected exception", ex);

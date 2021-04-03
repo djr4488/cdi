@@ -87,7 +87,13 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.3.1</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.1</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- apache commons -->
@@ -121,14 +127,6 @@
             <groupId>javax.json.bind</groupId>
             <artifactId>javax.json.bind-api</artifactId>
             <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- joda -->
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>2.10.8</version>
             <scope>compile</scope>
         </dependency>
 

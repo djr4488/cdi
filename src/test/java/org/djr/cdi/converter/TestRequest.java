@@ -18,14 +18,19 @@ public class TestRequest {
     @JsonbProperty("testProperty3")
     @XmlElement(name = "testProperty3")
     private String testProperty3;
+    @JsonbProperty
+    @XmlElement
+    private TestChild testChild;
 
     public TestRequest() {
     }
 
-    public TestRequest(String testProperty, String testProperty2, String testProperty3) {
+    public TestRequest(String testProperty, String testProperty2,
+                       String testProperty3, TestChild testChild) {
         this.testProperty = testProperty;
         this.testProperty2 = testProperty2;
         this.testProperty3 = testProperty3;
+        this.testChild = testChild;
     }
 
     public String getTestProperty() {
@@ -50,5 +55,13 @@ public class TestRequest {
 
     public void setTestProperty3(String testProperty3) {
         this.testProperty3 = testProperty3;
+    }
+
+    public TestChild getTestChild() {
+        return testChild;
+    }
+
+    public void setTestChild(TestChild testChild) {
+        this.testChild = testChild;
     }
 }

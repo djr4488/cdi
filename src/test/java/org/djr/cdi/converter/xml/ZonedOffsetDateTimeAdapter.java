@@ -1,0 +1,17 @@
+package org.djr.cdi.converter.xml;
+
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class ZonedOffsetDateTimeAdapter extends XmlAdapter<String, ZonedDateTime> {
+    private final DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+
+    public ZonedDateTime unmarshal(String datetime) {
+        return datetime != null ? ZonedDateTime.parse(datetime, formatter) : null;
+    }
+
+    public String marshal(ZonedDateTime datetime) {
+        return datetime != null ? formatter.format(datetime) : null;
+    }
+}

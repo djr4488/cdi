@@ -3,4 +3,10 @@
     <testproperty1>testProperty1</testproperty1>
     <test_property2>testProperty2</test_property2>
     <testProperty3>testProperty3</testProperty3>
+    <testChild>
+        <localDate>2021-04-01</localDate>
+        <localDateTime>2021-04-01T00:00:00</localDateTime>
+        <zonedDateTime>2021-04-01T00:00:00-05:00[America/Chicago]</zonedDateTime>
+        <offsetDateTime>2021-04-01T00:00:00-05:00</offsetDateTime>
+    </testChild>
 </testRequest>

@@ -1,5 +1,11 @@
 {
-  "test property1" : "testProperty1",
-  "test_property2" : "testProperty2",
-  "testProperty3" : "testProperty3"
+  "test property1": "test property1",
+  "testChild": {
+    "localDate": "2021-04-01",
+    "localDateTime": "2021-04-01T00:00:00",
+    "offsetDateTime": "2021-04-01T00:00:00-05:00[America/Chicago]",
+    "zonedDateTime": "2021-04-01T00:00:00-05:00[America/Chicago]"
+  },
+  "testProperty3": "testProperty3",
+  "test_property2": "test_property2"
 }

@@ -17,10 +17,15 @@ package org.djr.cdi.properties.environment;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Map;
+import java.util.Properties;
 
 @ApplicationScoped
 public class SystemEnvironment {
-    public Map<String,String> getEnvironment() {
+    public Map<String, String> getEnvironment() {
         return System.getenv();
+    }
+
+    public Properties getSystemProperties() {
+        return System.getProperties();
     }
 }

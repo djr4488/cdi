@@ -18,8 +18,7 @@ public class LookupCdi {
      */
     @SuppressWarnings("unchecked")
     @API(status = API.Status.MAINTAINED, since = "2018-09-03")
-    public static <T> T getBeanByNameOfClass(String name, Class<T> clazz)
-    throws Exception {
+    public static <T> T getBeanByNameOfClass(String name, Class<T> clazz) {
         BeanManager bm = CDI.current().getBeanManager();
         Bean<T> bean = (Bean<T>) bm.getBeans(name).iterator().next();
         CreationalContext<T> ctx = bm.createCreationalContext(bean);

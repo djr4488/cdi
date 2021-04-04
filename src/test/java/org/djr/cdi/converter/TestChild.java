@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.djr.cdi.converter.xml.adapters.LocalDateAdapter;
 import org.djr.cdi.converter.xml.adapters.LocalDateTimeAdapter;
 import org.djr.cdi.converter.xml.adapters.ZonedDateTimeAdapter;
-import org.djr.cdi.converter.xml.adapters.ZonedOffsetDateTimeAdapter;
+import org.djr.cdi.converter.xml.adapters.OffsetDateTimeAdapter;
 
 import javax.json.bind.annotation.JsonbProperty;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -38,6 +38,6 @@ public class TestChild {
     private ZonedDateTime zonedDateTime;
     @JsonbProperty
     @XmlElement
-    @XmlJavaTypeAdapter(value = ZonedOffsetDateTimeAdapter.class, type = ZonedDateTime.class)
+    @XmlJavaTypeAdapter(value = OffsetDateTimeAdapter.class, type = ZonedDateTime.class)
     private ZonedDateTime offsetDateTime;
 }

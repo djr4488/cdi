@@ -34,6 +34,7 @@ public class EnvironmentPropertiesLoader implements PropertyLoader {
         Properties prop;
         prop = new Properties();
         Map<String, String> environment = systemEnvironment.getEnvironment();
+        prop.putAll(systemEnvironment.getSystemProperties());
         for (String key : environment.keySet()) {
             prop.put(key, environment.get(key));
         }

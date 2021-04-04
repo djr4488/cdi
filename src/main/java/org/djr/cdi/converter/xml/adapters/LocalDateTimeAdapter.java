@@ -1,4 +1,4 @@
-package org.djr.cdi.converter.xml;
+package org.djr.cdi.converter.xml.adapters;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDateTime;

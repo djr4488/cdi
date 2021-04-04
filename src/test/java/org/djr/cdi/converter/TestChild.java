@@ -3,10 +3,10 @@ package org.djr.cdi.converter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.djr.cdi.converter.xml.LocalDateAdapter;
-import org.djr.cdi.converter.xml.LocalDateTimeAdapter;
-import org.djr.cdi.converter.xml.ZonedDateTimeAdapter;
-import org.djr.cdi.converter.xml.ZonedOffsetDateTimeAdapter;
+import org.djr.cdi.converter.xml.adapters.LocalDateAdapter;
+import org.djr.cdi.converter.xml.adapters.LocalDateTimeAdapter;
+import org.djr.cdi.converter.xml.adapters.ZonedDateTimeAdapter;
+import org.djr.cdi.converter.xml.adapters.ZonedOffsetDateTimeAdapter;
 
 import javax.json.bind.annotation.JsonbProperty;
 import javax.xml.bind.annotation.XmlAccessType;

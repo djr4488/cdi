@@ -83,3 +83,4 @@ fabric.properties
 .idea/workspace.xml
 cdi.iml
 target/
+/cdilib.utils.iml

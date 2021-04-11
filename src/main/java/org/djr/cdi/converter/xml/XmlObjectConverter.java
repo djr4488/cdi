@@ -46,7 +46,6 @@ public class XmlObjectConverter {
     throws JAXBException, IOException {
         JAXBContext context = getContext(from.getClass());
         Marshaller m = context.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         StringWriter sw = new StringWriter();
         m.marshal(from, sw);
         String xml = sw.toString();
